@@ -21,7 +21,9 @@
   "dependencies": {
     "@puresec/function-shield": "^1.2.2",
     "aws-xray-sdk": "^2.1.0",
-    "middy": "^0.19.4"
+    "jsonwebtoken": "^8.4.0",
+    "middy": "^0.19.4",
+    "mongodb": "^3.1.10"
   },
   "devDependencies": {
     "@babel/core": "^7.2.0",
