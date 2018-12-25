@@ -9,10 +9,10 @@ module.exports = {
         // 'block' mode => active blocking
         // 'alert' mode => log only
         // 'allow' mode => allowed, implicitly occurs if key does not exist
-        outbound_connectivity: 'block',
+        outbound_connectivity: 'alert',
         read_write_tmp: 'block',
         create_child_process: 'block',
-        read_handler: 'block',
+        read_handler: 'alert',
       },
       token: process.env.FUNCTION_SHIELD_TOKEN,
     });

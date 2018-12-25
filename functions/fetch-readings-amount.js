@@ -3,19 +3,21 @@
 const { ssm } = require('middy/middlewares');
 
 const wrapper = require('../middlewares/wrapper');
-const { promiseReturnResult } = require('../libs/MongoDBHelper');
+const mongodb = require('../libs/MongoDBHelper');
 const verifyJWT = require('../libs/VerifyJWT');
 const log = require('../libs/log');
 const cloudwatch = require('../libs/cloudwatch');
 
-const { STAGE, collectionName, jwtName } = process.env;
+const { STAGE, readingCollectionName, jwtName } = process.env;
 
 const handler = async (event, context, callback) => {
-  const user = verifyJWT(event.params[jwtName], context.jwtSecret);
+  context.callbackWaitsForEmptyEventLoop = false;
+  await mongodb.ininitalConnects(context.dbUrl, context.dbName);
+  const user = verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret);
 
   if (user) {
-    const result = await cloudwatch.trackExecTime(() => promiseReturnResult(db => db
-      .collection(collectionName)
+    const result = await cloudwatch.trackExecTime('MongoDBCountLatency', () => mongodb.promiseReturnResult(db => db
+      .collection(readingCollectionName)
       .count({ user_id: user._id })));
     callback(null, {
       statusCode: 200,

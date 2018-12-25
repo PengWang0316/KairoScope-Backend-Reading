@@ -9,7 +9,7 @@ const log = require('./log');
  */
 const verifyJWT = (message, jwtSecret) => {
   try {
-    return jwt.verify(message, jwtSecret);
+    return jwt.verify(message, jwtSecret.trim()); // For some reasons, the jwtSecret comes from EC2 parameter store has spaces
   } catch (e) {
     log.info(`Verify JWT failed with message ${message}`);
     return false;
