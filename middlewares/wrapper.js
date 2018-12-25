@@ -9,5 +9,5 @@ const sampleLogging = require('./sample-logging');
 const functionShield = require('./function-shield');
 
 module.exports = func => middy(func)
-  .use(sampleLogging())
-  .use(functionShield);
+  .use(sampleLogging());
+  // .use(functionShield);

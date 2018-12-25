@@ -12,7 +12,7 @@ module.exports = {
         outbound_connectivity: 'alert',
         read_write_tmp: 'block',
         create_child_process: 'block',
-        read_handler: 'alert',
+        read_handler: 'block',
       },
       token: process.env.FUNCTION_SHIELD_TOKEN,
     });
