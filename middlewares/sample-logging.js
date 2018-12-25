@@ -13,7 +13,7 @@ module.exports = (option = { sampleRate: 0.01 }) => { // The defualt sample rate
 
   return {
     before: (handler, next) => {
-      if (Math.random() <= sampleRate) {
+      if (process.env.log_level !== 'DEBUG' && Math.random() <= sampleRate) {
         logLevel = process.env.log_level;
         process.env.log_level = 'DEBUG';
       }
