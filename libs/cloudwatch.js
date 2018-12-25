@@ -100,7 +100,7 @@ const incrCount = (metricName, count) => {
 };
 
 const recordTimeInMillis = (metricName, ms) => {
-  if (!ms) {
+  if (!ms && ms !== 0) {
     return;
   }
 
@@ -136,7 +136,6 @@ const trackExecTime = (metricName, f) => {
   const start = new Date().getTime();
   let end;
   const res = f();
-
   // anything with a 'then' function can be considered a Promise...
   // http://stackoverflow.com/a/27746324/55074
   if (!Object.prototype.hasOwnProperty.call(res, 'then')) {
