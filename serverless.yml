@@ -1,9 +1,5 @@
 service: kairoscope-reading
 
-provider:
-  name: aws
-  runtime: nodejs8.10
-
 plugins:
   - serverless-pseudo-parameters # Read the region and accout id
   - serverless-iam-roles-per-function # Set up IAM role for each function
