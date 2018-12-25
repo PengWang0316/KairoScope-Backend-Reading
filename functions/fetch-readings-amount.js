@@ -13,7 +13,9 @@ const { STAGE, readingCollectionName, jwtName } = process.env;
 const handler = async (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   await mongodb.ininitalConnects(context.dbUrl, context.dbName);
-  const user = verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret);
+  const user = event.queryStringParameters
+    ? verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret)
+    : false;
 
   if (user) {
     const result = await cloudwatch.trackExecTime('MongoDBCountLatency', () => mongodb.promiseReturnResult(db => db
@@ -25,7 +27,7 @@ const handler = async (event, context, callback) => {
     });
   } else {
     log.info('Invalid user tried to call fetch-readings-amount');
-    callback(null, 'Invalid User');
+    callback(null, { body: 'Invalid User' });
   }
 };
 
