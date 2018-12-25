@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "integrationTest": "env AWS_XRAY_CONTEXT_MISSING=LOG_ERROR TEST_MODE=integration jest",
-    "acceptanceTest": "env TEST_MODE=acceptance TEST_ROOT=https://np96ddpbzb.execute-api.us-west-2.amazonaws.com/dev jest"
+    "acceptanceTest": "env TEST_MODE=acceptance TEST_ROOT=https://b8bpiar0bh.execute-api.us-west-2.amazonaws.com/dev jest"
   },
   "author": "Kevin W.",
   "license": "MIT",
