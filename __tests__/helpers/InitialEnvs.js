@@ -8,7 +8,7 @@ const SSM = new AWS.SSM(); // Read paramters from EC2 paramter store
 let isInitialized = false;
 
 const getParameters = async keys => {
-  const prefix = '/serverless-demo/dev/';
+  const prefix = '/reading-service/dev/';
   const req = { Names: keys.map(key => `${prefix}${key}`) };
   const resp = await SSM.getParameters(req).promise();
   const params = {};
@@ -19,17 +19,20 @@ const getParameters = async keys => {
 const init = () => new Promise(async (resolve, reject) => {
   if (isInitialized) resolve();
   const params = await getParameters([
-    'cognito_user_pool_id',
-    'cognito_client_id',
-    'restaurants_api',
+    'db-host',
+    'db-name',
+    'jwt-name',
+    'jwt-secret',
+    'jwt-name',
+    'collection-name',
   ]);
   process.env.STAGE = 'dev';
   process.env.AWS_REGION = region;
-  process.env.cognito_user_pool_id = params.cognito_user_pool_id;
-  process.env.cognito_client_id = params.cognito_client_id;
-  process.env.cognito_server_client_id = params.cognito_client_id;
-  process.env.restaurants_api = params.restaurants_api;
-  process.env.restaurants_table = 'restaurants';
+  process.env['db-host'] = params['db-host'];
+  process.env['db-name'] = params['db-name'];
+  process.env['jwt-name'] = params['jwt-name'];
+  process.env['jwt-secret'] = params['jwt-secret'];
+  process.env['collection-name'] = params['collection-name'];
 
   // User the awscred library to load credantial keys from the local profile.
   awscred.loadCredentials((err, data) => {
