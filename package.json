@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "unitTest": "jest  __tests__/unit_tests/*",
-    "integrationTest": "env AWS_XRAY_CONTEXT_MISSING=LOG_ERROR TEST_MODE=integration jest __tests__/test_cases/*",
+    "integrationTest": "env AWS_XRAY_CONTEXT_MISSING=LOG_ERROR TEST_MODE=integration jest __tests__/test_cases/* --forceExit",
     "acceptanceTest": "env TEST_MODE=acceptance TEST_ROOT=https://b8bpiar0bh.execute-api.us-west-2.amazonaws.com/dev jest __tests__/test_cases/*"
   },
   "author": "Kevin W.",
