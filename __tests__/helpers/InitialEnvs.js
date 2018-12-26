@@ -8,7 +8,7 @@ const SSM = new AWS.SSM(); // Read paramters from EC2 paramter store
 let isInitialized = false;
 
 const getParameters = async keys => {
-  const prefix = '/reading-service/dev/';
+  const prefix = '/kairoscope/dev/';
   const req = { Names: keys.map(key => `${prefix}${key}`) };
   const resp = await SSM.getParameters(req).promise();
   const params = {};
@@ -24,15 +24,15 @@ const init = () => new Promise(async (resolve, reject) => {
     'jwt-name',
     'jwt-secret',
     'jwt-name',
-    'collection-name',
+    'readings-collection-name',
   ]);
   process.env.STAGE = 'dev';
   process.env.AWS_REGION = region;
   process.env['db-host'] = params['db-host'];
   process.env['db-name'] = params['db-name'];
-  process.env['jwt-name'] = params['jwt-name'];
+  process.env.jwtName = params['jwt-name'];
   process.env['jwt-secret'] = params['jwt-secret'];
-  process.env['collection-name'] = params['collection-name'];
+  process.env.readingCollectionName = params['readings-collection-name'];
 
   // User the awscred library to load credantial keys from the local profile.
   awscred.loadCredentials((err, data) => {
