@@ -15,7 +15,7 @@ describe('get-index: invoke the Get / endpoint', () => {
   });
 
   test('invoke fetch-readings-amount function', async () => {
-    const event = { queryStringParameters: { jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc' } };
+    const event = { queryStringParameters: { jwtMessage: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc' } };
     const res = await invokeFetchReadingsAmount(event, context);
 
     expect(res.statusCode).toBe(200);
