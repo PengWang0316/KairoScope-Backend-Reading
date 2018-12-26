@@ -62,6 +62,7 @@ functions:
       - http:
           path: /readings/amount
           method: get
+          cors: true
     memorySize: 512
     environment:
       async_metrics: true # Use this variable to control whether send the metrics to CloudWatch Async      
