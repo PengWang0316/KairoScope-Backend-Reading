@@ -3,7 +3,7 @@ process.env = { STAGE: 'stage', readingCollectionName: 'reading', jwtName: 'jwt'
 const { handler } = require('../../functions/fetch-readings-amount');
 
 const mockCount = jest.fn().mockReturnValue({ result: 'result' });
-const mockCollection = jest.fn().mockReturnValue({ count: mockCount });
+const mockCollection = jest.fn().mockReturnValue({ countDocuments: mockCount });
 
 jest.mock('middy/middlewares', () => ({ ssm: jest.fn() }));
 jest.mock('../../middlewares/wrapper', () => functionHandler => ({

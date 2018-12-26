@@ -20,7 +20,7 @@ const handler = async (event, context, callback) => {
   if (user) {
     const result = await cloudwatch.trackExecTime('MongoDBCountLatency', () => mongodb.promiseReturnResult(db => db
       .collection(readingCollectionName)
-      .count({ user_id: user._id })));
+      .countDocuments({ user_id: user._id })));
     callback(null, {
       statusCode: 200,
       body: JSON.stringify(result),
