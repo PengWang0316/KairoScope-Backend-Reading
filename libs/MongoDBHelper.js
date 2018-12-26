@@ -6,7 +6,7 @@ const log = require('./log');
 var dbs; // Save dbs to a global variable for reusing
 
 // Initializing the connection pool.
-exports.ininitalConnects = async (dbUrl, dbName) => {
+exports.initialConnects = async (dbUrl, dbName) => {
   if (!dbs) { // Initialize the database connect if dbs has not been exsit
     log.debug('Initializing a new db connection...');
     try {
