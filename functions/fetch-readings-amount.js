@@ -8,7 +8,7 @@ const verifyJWT = require('../libs/VerifyJWT');
 const log = require('../libs/log');
 const cloudwatch = require('../libs/cloudwatch');
 
-const { STAGE, readingCollectionName, jwtName } = process.env;
+const { readingCollectionName, jwtName } = process.env;
 
 const handler = async (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -31,13 +31,4 @@ const handler = async (event, context, callback) => {
   }
 };
 
-module.exports.handler = wrapper(handler).use(ssm({
-  cache: true,
-  cacheExpiryInMillis: 3 * 60 * 1000,
-  setToContext: true, // Save the parameters to context instead of env. The parameters will just live in memory for the security concern.
-  names: {
-    dbUrl: `/kairoscope/${STAGE}/db-host`,
-    dbName: `/kairoscope/${STAGE}/db-name`,
-    jwtSecret: `/kairoscope/${STAGE}/jwt-secret`,
-  },
-}));
+module.exports.handler = wrapper(handler);

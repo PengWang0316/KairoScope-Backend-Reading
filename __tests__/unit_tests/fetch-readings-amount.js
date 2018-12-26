@@ -6,9 +6,7 @@ const mockCount = jest.fn().mockReturnValue({ result: 'result' });
 const mockCollection = jest.fn().mockReturnValue({ countDocuments: mockCount });
 
 jest.mock('middy/middlewares', () => ({ ssm: jest.fn() }));
-jest.mock('../../middlewares/wrapper', () => functionHandler => ({
-  use: () => functionHandler,
-}));
+jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
 jest.mock('../../libs/MongoDBHelper', () => ({
   initialConnects: jest.fn().mockResolvedValue(),
   promiseReturnResult: jest.fn().mockImplementation(callback => callback({

@@ -6,6 +6,8 @@
 const middy = require('middy');
 const { cors, functionShield, ssm } = require('middy/middlewares');
 
+const { STAGE } = process.env;
+
 const sampleLogging = require('./sample-logging');
 // const functionShield = require('./function-shield');
 
@@ -14,7 +16,17 @@ module.exports = func => middy(func)
     origin: 'https://kairoscope.resonancepath.com',
     credentials: true,
   }))
-  .use(ssm({ FUNCTION_SHIELD_TOKEN: '/kairoscope/dev/function_shield_token' }))
+  .use(ssm({
+    cache: true,
+    cacheExpiryInMillis: 3 * 60 * 1000,
+    setToContext: true, // Save the parameters to context instead of env. The parameters will just live in memory for the security concern.
+    names: {
+      dbUrl: `/kairoscope/${STAGE}/db-host`,
+      dbName: `/kairoscope/${STAGE}/db-name`,
+      jwtSecret: `/kairoscope/${STAGE}/jwt-secret`,
+      FUNCTION_SHIELD_TOKEN: `/kairoscope/${STAGE}/function_shield_token`,
+    },
+  }))
   .use(sampleLogging())
   .use(functionShield({
     policy: {
