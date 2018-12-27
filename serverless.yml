@@ -79,3 +79,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  search-readings:
+      handler: functions/search-readings.handler
+      events:
+        - http:
+            path: /readings/search
+            method: get
+            cors: true
+      memorySize: 1024
+      environment:
+        async_metrics: true
