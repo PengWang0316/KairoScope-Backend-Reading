@@ -1,12 +1,12 @@
 'use strict';
 
 const wrapper = require('../middlewares/wrapper');
-const { initialConnects, getDB } = require('../libs/MongoDBHelper');
+const { getDB } = require('../libs/MongoDBHelper');
 const verifyJWT = require('../libs/VerifyJWT');
 const log = require('../libs/log');
 const cloudwatch = require('../libs/cloudwatch');
 
-const { readingCollectionName, jwtName } = process.env;
+const { readingCollectionName, hexagramCollectionName, jwtName } = process.env;
 
 // TODO This function should be refactored. Using Redux to store hexagram data and let the front-end code to match reading with them.
 /* Working with method below to execute the callback function when all hexagram are fetched. */
@@ -25,13 +25,13 @@ const findHexagramImages = (readings, callback) => {
   // Making a copy for the readings. So, the code below is safe when change reading in the forEach function.
   const copyReadings = [...readings];
   copyReadings.forEach(reading => {
-    getDB().collection(process.env.hexagramCollectionName)
+    getDB().collection(hexagramCollectionName)
       .find({ img_arr: reading.hexagram_arr_1 }).next((err, imgInfo) => {
         reading.img1Info = imgInfo;
         checkNumber += 1;
         checkHexagramImageReadAndCallback(checkNumber, targetNumber, callback, copyReadings);
       });
-    getDB().collection(process.env.hexagramCollectionName)
+    getDB().collection(hexagramCollectionName)
       .find({ img_arr: reading.hexagram_arr_2 }).next((err, imgInfo) => {
         reading.img2Info = imgInfo;
         checkNumber += 1;
@@ -41,8 +41,8 @@ const findHexagramImages = (readings, callback) => {
 };
 
 const handler = async (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  await initialConnects(context.dbUrl, context.dbName);
+  // context.callbackWaitsForEmptyEventLoop = false;
+  // await initialConnects(context.dbUrl, context.dbName);
   const user = event.queryStringParameters
     ? verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret)
     : false;
@@ -51,7 +51,7 @@ const handler = async (event, context, callback) => {
     const { pageNumber, numberPerpage } = event.queryStringParameters;
     const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
       getDB().collection(readingCollectionName)
-        .find(user.role * 1 === process.env.ADMINISTRATOR_ROLE * 1 ? { user_id: user._id } : {})
+        .find(user.role * 1 === process.env.ADMINISTRATOR_ROLE * 1 ? {} : { user_id: user._id })
         .sort({ date: -1 })
         .limit(numberPerpage * 1)
         .skip(pageNumber * numberPerpage)
