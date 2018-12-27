@@ -9,8 +9,8 @@ const cloudwatch = require('../libs/cloudwatch');
 const { readingCollectionName, jwtName } = process.env;
 
 const handler = async (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  await mongodb.initialConnects(context.dbUrl, context.dbName);
+  // context.callbackWaitsForEmptyEventLoop = false;
+  // await mongodb.initialConnects(context.dbUrl, context.dbName);
   const user = event.queryStringParameters
     ? verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret)
     : false;
