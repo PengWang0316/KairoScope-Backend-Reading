@@ -35,7 +35,9 @@ provider:
     STAGE: ${self:custom.stage} # For DEFAULT_CONTEXT in log.js
     FUNCTION_SHIELD_TOKEN: ${ssm:/kairoscope/${self:custom.stage}/function_shield_token} # For using the Function Shield
     readingCollectionName: ${ssm:/kairoscope/${self:custom.stage}/readings-collection-name}
+    hexagramCollectionName: ${ssm:/kairoscope/${self:custom.stage}/hexagrams-collection-name}
     jwtName: ${ssm:/kairoscope/${self:custom.stage}/jwt-name}
+    ADMINISTRATOR_ROLE: 1
   iamRoleStatements:
     - Effect: Allow
       Action: cloudwatch:PutMetricData
@@ -66,3 +68,14 @@ functions:
     memorySize: 512
     environment:
       async_metrics: true # Use this variable to control whether send the metrics to CloudWatch Async      
+
+  fetch-readings:
+      handler: functions/fetch-readings.handler
+      events:
+        - http:
+            path: /readings
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
