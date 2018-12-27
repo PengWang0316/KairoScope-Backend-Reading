@@ -1,7 +1,5 @@
 'use strict';
 
-const { ssm } = require('middy/middlewares');
-
 const wrapper = require('../middlewares/wrapper');
 const mongodb = require('../libs/MongoDBHelper');
 const verifyJWT = require('../libs/VerifyJWT');
