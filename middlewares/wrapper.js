@@ -4,11 +4,14 @@
  * A middleware to wrap some comman middlwares. So all function will have these middlewares automatically.
  */
 const middy = require('middy');
-const { cors, functionShield, ssm } = require('middy/middlewares');
+const {
+  cors, functionShield, ssm, doNotWaitForEmptyEventLoop,
+} = require('middy/middlewares');
 
 const { STAGE } = process.env;
 
 const sampleLogging = require('./sample-logging');
+const initializeMongodb = require('./initialize-mongodb');
 // const functionShield = require('./function-shield');
 
 module.exports = func => middy(func)
@@ -35,4 +38,6 @@ module.exports = func => middy(func)
       create_child_process: 'block',
       read_handler: 'block',
     },
-  }));
+  }))
+  .use(doNotWaitForEmptyEventLoop())
+  .use(initializeMongodb);
