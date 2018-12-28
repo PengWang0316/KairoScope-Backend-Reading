@@ -1,5 +1,4 @@
-process.env = { STAGE: 'stage', readingCollectionName: 'reading', jwtName: 'jwt' };
-
+require('../helpers/initailEnvsForUnitTest');
 const { handler } = require('../../functions/fetch-readings-amount');
 
 const mockCount = jest.fn().mockReturnValue({ result: 'result' });
