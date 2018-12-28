@@ -1,0 +1,94 @@
+require('../../helpers/initailEnvsForUnitTest');
+
+const verifyUser = require('../../../middlewares/verify-user');
+
+jest.mock('../../../libs/VerifyJWT', () => jest.fn().mockReturnValue(false));
+jest.mock('../../../libs/log', () => ({ info: jest.fn() }));
+
+describe('verity-user middleware', () => {
+  test('No event.queryStringParameters', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    const { info } = require('../../../libs/log');
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+
+    verifyUser.before({
+      event: {},
+      context: { functionName: 'functionName' },
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).not.toHaveBeenCalled();
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(info).toHaveBeenCalledTimes(1);
+    expect(info).toHaveBeenLastCalledWith('Invalid user tried to call functionName');
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(mockCallback).toHaveBeenLastCalledWith(null, { body: 'Invalid User' });
+  });
+
+  test('Has event.queryStringParameters but not jwtName', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    const { info } = require('../../../libs/log');
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+
+    verifyUser.before({
+      event: { queryStringParameters: {} },
+      context: { functionName: 'functionName' },
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).not.toHaveBeenCalled();
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(info).toHaveBeenCalledTimes(2);
+    expect(info).toHaveBeenLastCalledWith('Invalid user tried to call functionName');
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(mockCallback).toHaveBeenLastCalledWith(null, { body: 'Invalid User' });
+  });
+
+  test('verify failed', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    const { info } = require('../../../libs/log');
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+    const context = { functionName: 'functionName', jwtSecret: 'jwtSecret' };
+
+    verifyUser.before({
+      event: { queryStringParameters: { [process.env.jwtName]: 'jwtMessage' } },
+      context,
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).toHaveBeenCalledTimes(1);
+    expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(context.user).toBeUndefined();
+    expect(info).toHaveBeenCalledTimes(3);
+    expect(info).toHaveBeenLastCalledWith('Invalid user tried to call functionName');
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(mockCallback).toHaveBeenLastCalledWith(null, { body: 'Invalid User' });
+  });
+
+  test('verify passed', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    verifyJwt.mockReturnValueOnce({ _id: 'id' });
+    const log = require('../../../libs/log');
+    log.info = jest.fn();
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+    const context = { functionName: 'functionName', jwtSecret: 'jwtSecret' };
+
+    verifyUser.before({
+      event: { queryStringParameters: { [process.env.jwtName]: 'jwtMessage' } },
+      context,
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).toHaveBeenCalledTimes(2);
+    expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(context.user).toEqual({ _id: 'id' });
+    expect(log.info).not.toHaveBeenCalled();
+    expect(mockCallback).not.toHaveBeenCalled();
+  });
+});
