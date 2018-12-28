@@ -2,11 +2,10 @@
 
 const wrapper = require('../middlewares/wrapper');
 const { getDB } = require('../libs/MongoDBHelper');
-const verifyJWT = require('../libs/VerifyJWT');
 const log = require('../libs/log');
 const cloudwatch = require('../libs/cloudwatch');
 
-const { readingCollectionName, hexagramCollectionName, jwtName } = process.env;
+const { readingCollectionName, hexagramCollectionName } = process.env;
 
 // TODO This function should be refactored. Using Redux to store hexagram data and let the front-end code to match reading with them.
 /* Working with method below to execute the callback function when all hexagram are fetched. */
@@ -41,34 +40,24 @@ const findHexagramImages = (readings, callback) => {
 };
 
 const handler = async (event, context, callback) => {
-  // context.callbackWaitsForEmptyEventLoop = false;
-  // await initialConnects(context.dbUrl, context.dbName);
-  const user = event.queryStringParameters
-    ? verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret)
-    : false;
-
-  if (user && user._id && user.role) {
-    const { pageNumber, numberPerpage } = event.queryStringParameters;
-    const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
-      getDB().collection(readingCollectionName)
-        .find(user.role * 1 === process.env.ADMINISTRATOR_ROLE * 1 ? {} : { user_id: user._id })
-        .sort({ date: -1 })
-        .limit(numberPerpage * 1)
-        .skip(pageNumber * numberPerpage)
-        .toArray((err, readingResult) => {
-          if (err) log.error('Reading getRecentReadings something goes worry: ', err);
-          if (readingResult.length !== 0) findHexagramImages(readingResult, backResult => resolve(backResult));
-          else resolve(readingResult);
-        });
-    }));
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(result),
-    });
-  } else {
-    log.info('Invalid user tried to call fetch-readings');
-    callback(null, { body: 'Invalid User' });
-  }
+  const userRole = context.user.role || 3; // Give a default role
+  const { pageNumber, numberPerpage } = event.queryStringParameters;
+  const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
+    getDB().collection(readingCollectionName)
+      .find(userRole * 1 === process.env.ADMINISTRATOR_ROLE * 1 ? {} : { user_id: context.user._id })
+      .sort({ date: -1 })
+      .limit(numberPerpage * 1)
+      .skip(pageNumber * numberPerpage)
+      .toArray((err, readingResult) => {
+        if (err) log.error('Reading getRecentReadings something goes worry: ', err);
+        if (readingResult.length !== 0) findHexagramImages(readingResult, backResult => resolve(backResult));
+        else resolve(readingResult);
+      });
+  }));
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify(result),
+  });
 };
 
 module.exports.handler = wrapper(handler);
