@@ -90,3 +90,14 @@ functions:
       memorySize: 1024
       environment:
         async_metrics: true
+
+  fetch-all-reading-list:
+      handler: functions/fetch-all-reading-list.handler
+      events:
+        - http:
+            path: /readings/allList
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
