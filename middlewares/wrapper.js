@@ -12,6 +12,7 @@ const { STAGE } = process.env;
 
 const sampleLogging = require('./sample-logging');
 const initializeMongodb = require('./initialize-mongodb');
+const verifyUser = require('./verify-user');
 // const functionShield = require('./function-shield');
 
 module.exports = func => middy(func)
@@ -40,4 +41,5 @@ module.exports = func => middy(func)
     },
   }))
   .use(doNotWaitForEmptyEventLoop())
-  .use(initializeMongodb);
+  .use(initializeMongodb)
+  .use(verifyUser);
