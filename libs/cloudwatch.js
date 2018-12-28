@@ -7,7 +7,7 @@ const log = require('./log');
 
 const cloudwatch = new AWS.CloudWatch();
 
-const namespace = 'serverless-demo';
+const namespace = 'KairoScope-reading';
 // The format for async is MONITORING|value|unit|name|namespace|dimensions1, dimension2, ...
 const isAsyncMode = (process.env.async_metrics || 'false') === 'true'; // Check whether need to send metrics async for APIs
 
