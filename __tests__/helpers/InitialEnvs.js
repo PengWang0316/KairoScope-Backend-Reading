@@ -35,6 +35,7 @@ const init = () => new Promise(async (resolve, reject) => {
   process.env['jwt-secret'] = params['jwt-secret'];
   process.env.readingCollectionName = params['readings-collection-name'];
   process.env.hexagramCollectionName = params['hexagrams-collection-name'];
+  process.env.jwt = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc';
 
   // User the awscred library to load credantial keys from the local profile.
   awscred.loadCredentials((err, data) => {

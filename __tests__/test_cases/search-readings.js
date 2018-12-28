@@ -17,8 +17,7 @@ describe('search-readings: invoke the Get / endpoint', () => {
   test('invoke search-readings function', async () => {
     const event = {
       queryStringParameters: {
-        jwtMessage: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc',
-        // searchCriterias: '%7B%22startDate%22:%22%22,%22endDate%22:%22%22,%22people%22:%22%22,%22upperId%22:0,%22lowerId%22:0,%22line13Id%22:0,%22line25Id%22:0,%22line46Id%22:0%7D',
+        jwtMessage: process.env.jwt,
         searchCriterias: '{"startDate":"","endDate":"","people":"","upperId":0,"lowerId":0,"line13Id":0,"line25Id":0,"line46Id":0}',
       },
     };

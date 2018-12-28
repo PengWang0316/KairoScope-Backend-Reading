@@ -70,13 +70,20 @@ const viaHandler = (handlerName, event = {}, context = {}) => {
 };
 
 const invokeFetchReadingsAmount = (event, context) => isIntegrationTest
-  ? viaHandler('fetch-readings-amount', event, context) : viaHttp('readings/amount?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc');
+  ? viaHandler('fetch-readings-amount', event, context)
+  : viaHttp('readings/amount?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc');
 
 const invokeFetchReadings = (event, context) => isIntegrationTest
-  ? viaHandler('fetch-readings', event, context) : viaHttp('readings?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&pageNumber=0&numberPerpage=5');
+  ? viaHandler('fetch-readings', event, context)
+  : viaHttp('readings?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&pageNumber=0&numberPerpage=5');
 
 const invokeSearchReadings = (event, context) => isIntegrationTest
-  ? viaHandler('search-readings', event, context) : viaHttp('readings/search?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&searchCriterias=%7B"startDate":"","endDate":"","people":"","upperId":0,"lowerId":0,"line13Id":0,"line25Id":0,"line46Id":0%7D');
+  ? viaHandler('search-readings', event, context)
+  : viaHttp('readings/search?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&searchCriterias=%7B"startDate":"","endDate":"","people":"","upperId":0,"lowerId":0,"line13Id":0,"line25Id":0,"line46Id":0%7D');
+
+const invokeFetchAllReadingList = (event, context) => isIntegrationTest
+  ? viaHandler('fetch-all-reading-list', event, context)
+  : viaHttp('readings/allList?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&pageNumber=1&numberPerpage=10');
 
 // const invokeGetRestaurants = () => testMode === 'integration'
 //   ? viaHandler('get-restaurants') : viaHttp('restaurants', 'get', { iam: true });
@@ -89,4 +96,5 @@ module.exports = {
   invokeFetchReadingsAmount,
   invokeFetchReadings,
   invokeSearchReadings,
+  invokeFetchAllReadingList,
 };
