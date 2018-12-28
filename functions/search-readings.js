@@ -127,7 +127,7 @@ const handler = async (event, context, callback) => {
       body: JSON.stringify(result),
     });
   } else {
-    log.info('Invalid user tried to call fetch-readings-amount');
+    log.info('Invalid user tried to call search-readings');
     callback(null, { body: 'Invalid User' });
   }
 };
