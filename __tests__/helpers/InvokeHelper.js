@@ -28,8 +28,8 @@ const signHttpRequest = (isIAM, realURL) => {
 };
 
 // Invode the handler via a real api gateway to do the acceptance test
-const viaHttp = async (path, method = 'get', opts = { iam: false }) => new Promise(async (resolve, reject) => {
-  const url = `${process.env.TEST_ROOT}/${path}`;
+const viaHttp = async (path, opts = { iam: false }, method = 'get') => new Promise(async (resolve, reject) => {
+  const url = `${process.env.TEST_ROOT}/${path}${opts.isJwt ? `&jwtMessage=${process.env.jwt}` : ''}`; // Add jwtMessage if requires
   console.log(`Invoking via HTTP ${url}`);
   const headers = signHttpRequest(opts.iam, url);
   if (opts.authHeader) headers.Authorization = opts.authHeader; // Set a Authorization header if function need a cognito user token
@@ -71,19 +71,19 @@ const viaHandler = (handlerName, event = {}, context = {}) => {
 
 const invokeFetchReadingsAmount = (event, context) => isIntegrationTest
   ? viaHandler('fetch-readings-amount', event, context)
-  : viaHttp('readings/amount?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc');
+  : viaHttp('readings/amount?', { iam: false, isJwt: true });
 
 const invokeFetchReadings = (event, context) => isIntegrationTest
   ? viaHandler('fetch-readings', event, context)
-  : viaHttp('readings?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&pageNumber=0&numberPerpage=5');
+  : viaHttp('readings?pageNumber=0&numberPerpage=5', { iam: false, isJwt: true });
 
 const invokeSearchReadings = (event, context) => isIntegrationTest
   ? viaHandler('search-readings', event, context)
-  : viaHttp('readings/search?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&searchCriterias=%7B"startDate":"","endDate":"","people":"","upperId":0,"lowerId":0,"line13Id":0,"line25Id":0,"line46Id":0%7D');
+  : viaHttp('readings/search?searchCriterias=%7B"startDate":"","endDate":"","people":"","upperId":0,"lowerId":0,"line13Id":0,"line25Id":0,"line46Id":0%7D', { iam: false, isJwt: true });
 
 const invokeFetchAllReadingList = (event, context) => isIntegrationTest
   ? viaHandler('fetch-all-reading-list', event, context)
-  : viaHttp('readings/allList?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc0F1dGgiOnRydWUsInJvbGUiOjIsIl9pZCI6IjU5ZGU5ZTUwMjM1NDNmOGEyOGNmYzA3MSIsImlhdCI6MTU0NTc2NjQ0MH0.ZJ9nXFbfuYo73SQAGal_NYi9aeAwNfR_X45527VAopc&pageNumber=1&numberPerpage=10');
+  : viaHttp('readings/allList?pageNumber=1&numberPerpage=10', { iam: false, isJwt: true });
 
 // const invokeGetRestaurants = () => testMode === 'integration'
 //   ? viaHandler('get-restaurants') : viaHttp('restaurants', 'get', { iam: true });
