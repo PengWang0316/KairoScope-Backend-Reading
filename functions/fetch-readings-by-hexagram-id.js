@@ -1,34 +1,28 @@
 'use strict';
 
 const wrapper = require('../middlewares/wrapper');
-const { promiseFindResult } = require('../libs/MongoDBHelper');
-const verifyJWT = require('../libs/VerifyJWT');
-const log = require('../libs/log');
+const { getDB } = require('../libs/MongoDBHelper');
 const cloudwatch = require('../libs/cloudwatch');
+const findHexagramImages = require('./libs/find-hexagram-images');
 
-const { readingCollectionName, jwtName } = process.env;
+const { readingCollectionName, ADMINISTRATOR_ROLE } = process.env;
 
 const handler = async (event, context, callback) => {
-  const user = event.queryStringParameters
-    ? verifyJWT(event.queryStringParameters[jwtName], context.jwtSecret)
-    : false;
-
-  if (user) {
-    const { numberPerpage } = event.queryStringParameters;
-    const pageNumber = event.queryStringParameters.pageNumber === undefined ? 0 : event.queryStringParameters.pageNumber;
-    const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => promiseFindResult(db => db
-      .collection(readingCollectionName)
-      .find({ user_id: user._id }, { reading_name: 1, date: 1 })
-      .skip(pageNumber * numberPerpage).limit(numberPerpage * 1)
-      .sort({ date: -1 })));
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(result),
+  const { imageArray } = event.queryStringParameters;
+  const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
+    const queryObject = { $or: [{ hexagram_arr_1: imageArray }, { hexagram_arr_2: imageArray }] };
+    const userRole = context.user.role || 3; // Give a default role
+    if (userRole * 1 !== ADMINISTRATOR_ROLE * 1) queryObject.user_id = context.user._id;
+    getDB().collection(readingCollectionName).find(queryObject).toArray((err, findResult) => {
+      if (findResult.length !== 0) findHexagramImages(findResult, callbackResult => resolve(callbackResult));
+      else resolve(findResult);
     });
-  } else {
-    log.info('Invalid user tried to call fetch-all-reading-list');
-    callback(null, { body: 'Invalid User' });
-  }
+  }));
+
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify(result),
+  });
 };
 
 module.exports.handler = wrapper(handler);
