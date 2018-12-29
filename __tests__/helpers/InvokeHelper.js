@@ -85,6 +85,10 @@ const invokeFetchAllReadingList = (event, context) => isIntegrationTest
   ? viaHandler('fetch-all-reading-list', event, context)
   : viaHttp('readings/allList?pageNumber=1&numberPerpage=10', { iam: false, isJwt: true });
 
+const invokeFetchReadingsByHexagramId = (event, context) => isIntegrationTest
+  ? viaHandler('fetch-readings-by-hexagram-id', event, context)
+  : viaHttp('readings/hexagram?imageArray=6,8-7,9-6,8-6,8-6,8-7,9', { iam: false, isJwt: true });
+
 // const invokeGetRestaurants = () => testMode === 'integration'
 //   ? viaHandler('get-restaurants') : viaHttp('restaurants', 'get', { iam: true });
 
@@ -97,4 +101,5 @@ module.exports = {
   invokeFetchReadings,
   invokeSearchReadings,
   invokeFetchAllReadingList,
+  invokeFetchReadingsByHexagramId,
 };

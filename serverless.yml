@@ -101,3 +101,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  fetch-readings-by-hexagram-id:
+      handler: functions/fetch-readings-by-hexagram-id.handler
+      events:
+        - http:
+            path: /readings/hexagram
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
