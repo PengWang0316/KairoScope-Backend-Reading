@@ -16,9 +16,10 @@ One of the microservice for KairoScope. This service is in charge of reading's o
 ### Test :tada: :tada:
 
 Test code is under the __tests__ folder
-Unit test: jest
-Integration test: npm run integrationTest
-Acceptance test: npm run acceptanceTest
+- Unit test: npm run unitTest
+- Unit test with coverage report: npm run unitTestCoverage
+- Integration test: npm run integrationTest
+- Acceptance test: npm run acceptanceTest
 
 ### Living website
 https://kairoscope.resonancepath.com
