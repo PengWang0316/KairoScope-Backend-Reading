@@ -4,7 +4,7 @@
   "description": "The microservice for KairoScope. This is the service that is in charge of reading's operations.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "unitTest": "jest  __tests__/unit_tests/*",
     "unitTestCoverage": "jest  __tests__/unit_tests/* --coverage",
     "integrationTest": "env AWS_XRAY_CONTEXT_MISSING=LOG_ERROR TEST_MODE=integration jest __tests__/test_cases/* --forceExit",
@@ -39,6 +39,7 @@
     "babel-eslint": "^10.0.1",
     "chance": "^1.0.18",
     "cheerio": "^1.0.0-rc.2",
+    "coveralls": "^3.0.2",
     "dotenv": "^6.1.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb": "^17.1.0",

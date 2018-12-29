@@ -2,6 +2,8 @@
 
 One of the microservice for KairoScope. This service is in charge of reading's operations.
 
+[![Build Status](https://travis-ci.org/PengWang0316/KairoScope-Backend-Reading.svg?branch=master)](https://travis-ci.org/PengWang0316/KairoScope-Backend-Reading) [![Coverage Status](https://coveralls.io/repos/github/PengWang0316/KairoScope-Backend-Reading/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/KairoScope-Backend-Reading?branch=master)
+
 ## Functions are hosting on AWS lambda function
 
 ### Some explainations
