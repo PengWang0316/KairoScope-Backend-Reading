@@ -11,7 +11,8 @@ module.exports = {
       ? verifyJWT(handler.event.queryStringParameters[jwtName], handler.context.jwtSecret)
       : false;
     if (user) {
-      handler.context.user = user;
+      // Give a default role if the jwt is missing role information
+      handler.context.user = user.role === undefined || user.role === null ? { ...user, role: 3 } : user;
       next();
     } else {
       log.info(`Invalid user tried to call ${handler.context.functionName}`);

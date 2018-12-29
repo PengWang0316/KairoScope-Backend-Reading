@@ -69,7 +69,7 @@ describe('verity-user middleware', () => {
     expect(mockCallback).toHaveBeenLastCalledWith(null, { body: 'Invalid User' });
   });
 
-  test('verify passed', () => {
+  test('verify passed without role', () => {
     const verifyJwt = require('../../../libs/VerifyJWT');
     verifyJwt.mockReturnValueOnce({ _id: 'id' });
     const log = require('../../../libs/log');
@@ -87,7 +87,30 @@ describe('verity-user middleware', () => {
     expect(verifyJwt).toHaveBeenCalledTimes(2);
     expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
     expect(mockNext).toHaveBeenCalledTimes(1);
-    expect(context.user).toEqual({ _id: 'id' });
+    expect(context.user).toEqual({ _id: 'id', role: 3 });
+    expect(log.info).not.toHaveBeenCalled();
+    expect(mockCallback).not.toHaveBeenCalled();
+  });
+
+  test('verify passed with role', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    verifyJwt.mockReturnValueOnce({ _id: 'id', role: '1' });
+    const log = require('../../../libs/log');
+    log.info = jest.fn();
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+    const context = { functionName: 'functionName', jwtSecret: 'jwtSecret' };
+
+    verifyUser.before({
+      event: { queryStringParameters: { [process.env.jwtName]: 'jwtMessage' } },
+      context,
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).toHaveBeenCalledTimes(3);
+    expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(context.user).toEqual({ _id: 'id', role: '1' });
     expect(log.info).not.toHaveBeenCalled();
     expect(mockCallback).not.toHaveBeenCalled();
   });

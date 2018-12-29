@@ -12,9 +12,8 @@ const {
 } = process.env;
 
 const handler = async (event, context, callback) => {
-  const userRole = context.user.role || 3; // Give a default role
   const query = JSON.parse(event.queryStringParameters.searchCriterias);
-  if (userRole * 1 !== ADMINISTRATOR_ROLE * 1) query.userId = context.user._id;
+  if (context.user.role * 1 !== ADMINISTRATOR_ROLE * 1) query.userId = context.user._id;
 
   const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
     if (query.upperId !== 0 || query.lowerId !== 0

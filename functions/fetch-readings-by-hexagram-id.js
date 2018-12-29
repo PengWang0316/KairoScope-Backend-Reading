@@ -11,8 +11,7 @@ const handler = async (event, context, callback) => {
   const { imageArray } = event.queryStringParameters;
   const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
     const queryObject = { $or: [{ hexagram_arr_1: imageArray }, { hexagram_arr_2: imageArray }] };
-    const userRole = context.user.role || 3; // Give a default role
-    if (userRole * 1 !== ADMINISTRATOR_ROLE * 1) queryObject.user_id = context.user._id;
+    if (context.user.role * 1 !== ADMINISTRATOR_ROLE * 1) queryObject.user_id = context.user._id;
     getDB().collection(readingCollectionName).find(queryObject).toArray((err, findResult) => {
       if (findResult.length !== 0) findHexagramImages(findResult, callbackResult => resolve(callbackResult));
       else resolve(findResult);
