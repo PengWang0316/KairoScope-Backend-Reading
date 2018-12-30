@@ -50,9 +50,9 @@ function searchForReadings(query, callback, results) {
   getDB().collection(readingCollectionName)
     .find({ $and: queryArray }).sort({ date: -1 })
     .toArray((err, result) => {
-      if (err) log.error('searchForReadings: ', err);
+      if (err) log.error(`searchForReadings: ${err}`);
       if (result.length !== 0) findHexagramImages(result, callback);
-      else callback(result);
+      callback(result);
     });
 }
 
