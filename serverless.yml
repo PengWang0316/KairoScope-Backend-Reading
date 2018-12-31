@@ -112,3 +112,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  fetch-journals:
+      handler: functions/fetch-journals.handler
+      events:
+        - http:
+            path: /journals
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
