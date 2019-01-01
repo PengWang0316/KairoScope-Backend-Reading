@@ -7,8 +7,14 @@ const { jwtName } = process.env;
 
 module.exports = {
   before: (handler, next) => {
-    const user = handler.event.queryStringParameters && handler.event.queryStringParameters[jwtName]
-      ? verifyJWT(handler.event.queryStringParameters[jwtName], handler.context.jwtSecret)
+    let jwtMessage;
+    if (handler.event.queryStringParameters && handler.event.queryStringParameters[jwtName]) jwtMessage = handler.event.queryStringParameters[jwtName];
+    else if (handler.event.body) {
+      const message = JSON.parse(handler.event.body)[jwtName];
+      if (message) jwtMessage = message;
+    }
+    const user = jwtMessage
+      ? verifyJWT(jwtMessage, handler.context.jwtSecret)
       : false;
     if (user) {
       // Give a default role if the jwt is missing role information

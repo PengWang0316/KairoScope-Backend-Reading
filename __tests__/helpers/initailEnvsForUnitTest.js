@@ -2,6 +2,6 @@ process.env = {
   STAGE: 'stage',
   readingCollectionName: 'reading',
   hexagramCollectionName: 'hexagrams',
-  jwtName: 'jwt',
+  jwtName: 'jwtMessage',
   ADMINISTRATOR_ROLE: '1',
 };

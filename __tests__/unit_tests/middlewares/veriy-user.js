@@ -6,7 +6,7 @@ jest.mock('../../../libs/VerifyJWT', () => jest.fn().mockReturnValue(false));
 jest.mock('../../../libs/log', () => ({ info: jest.fn() }));
 
 describe('verity-user middleware', () => {
-  test('No event.queryStringParameters', () => {
+  test('No event.queryStringParameters and body', () => {
     const verifyJwt = require('../../../libs/VerifyJWT');
     const { info } = require('../../../libs/log');
     const mockNext = jest.fn();
@@ -108,6 +108,29 @@ describe('verity-user middleware', () => {
     }, mockNext);
 
     expect(verifyJwt).toHaveBeenCalledTimes(3);
+    expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
+    expect(mockNext).toHaveBeenCalledTimes(1);
+    expect(context.user).toEqual({ _id: 'id', role: '1' });
+    expect(log.info).not.toHaveBeenCalled();
+    expect(mockCallback).not.toHaveBeenCalled();
+  });
+
+  test('has body verify passed with role', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    verifyJwt.mockReturnValueOnce({ _id: 'id', role: '1' });
+    const log = require('../../../libs/log');
+    log.info = jest.fn();
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+    const context = { functionName: 'functionName', jwtSecret: 'jwtSecret' };
+
+    verifyUser.before({
+      event: { body: '{ "jwtMessage": "jwtMessage" }' },
+      context,
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).toHaveBeenCalledTimes(4);
     expect(verifyJwt).toHaveBeenLastCalledWith('jwtMessage', 'jwtSecret');
     expect(mockNext).toHaveBeenCalledTimes(1);
     expect(context.user).toEqual({ _id: 'id', role: '1' });
