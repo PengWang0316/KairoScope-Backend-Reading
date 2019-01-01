@@ -123,3 +123,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  fetch-readings-by-name:
+      handler: functions/fetch-readings-by-name.handler
+      events:
+        - http:
+            path: /readings/search/name
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
