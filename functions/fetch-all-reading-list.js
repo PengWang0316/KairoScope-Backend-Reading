@@ -11,7 +11,7 @@ const handler = async (event, context, callback) => {
   const pageNumber = event.queryStringParameters.pageNumber === undefined ? 0 : event.queryStringParameters.pageNumber;
   const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => promiseFindResult(db => db
     .collection(readingCollectionName)
-    .find({ user_id: context.user._id }, { reading_name: 1, date: 1 })
+    .find({ user_id: context.user._id }, { projection: { reading_name: 1, date: 1 } })
     .skip(pageNumber * numberPerpage).limit(numberPerpage * 1)
     .sort({ date: -1 })));
   callback(null, {

@@ -57,7 +57,7 @@ describe('search-readings', () => {
     expect(mockCollection).toHaveBeenCalledTimes(1);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.hexagramCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(1);
-    expect(mockFind).toHaveBeenLastCalledWith({ upper_trigrams_id: new ObjectId('595a8b17f271190858935906') }, { _id: 0, img_arr: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ upper_trigrams_id: new ObjectId('595a8b17f271190858935906') }, { projection: { _id: 0, img_arr: 1 } });
     expect(mockToArray).toHaveBeenCalledTimes(1);
     expect(searchForReadings).toHaveBeenCalledTimes(2);
     // expect(error).not.toHaveBeenCalled();
@@ -83,7 +83,7 @@ describe('search-readings', () => {
     expect(mockCollection).toHaveBeenCalledTimes(2);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.hexagramCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(2);
-    expect(mockFind).toHaveBeenLastCalledWith({ lower_trigrams_id: new ObjectId('595a8b17f271190858935906') }, { _id: 0, img_arr: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ lower_trigrams_id: new ObjectId('595a8b17f271190858935906') }, { projection: { _id: 0, img_arr: 1 } });
     expect(mockToArray).toHaveBeenCalledTimes(2);
     expect(searchForReadings).toHaveBeenCalledTimes(3);
     // expect(error).not.toHaveBeenCalled();
@@ -109,7 +109,7 @@ describe('search-readings', () => {
     expect(mockCollection).toHaveBeenCalledTimes(3);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.hexagramCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(3);
-    expect(mockFind).toHaveBeenLastCalledWith({ line_13_id: new ObjectId('595a8b17f271190858935906') }, { _id: 0, img_arr: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ line_13_id: new ObjectId('595a8b17f271190858935906') }, { projection: { _id: 0, img_arr: 1 } });
     expect(mockToArray).toHaveBeenCalledTimes(3);
     expect(searchForReadings).toHaveBeenCalledTimes(4);
     // expect(error).not.toHaveBeenCalled();
@@ -135,7 +135,7 @@ describe('search-readings', () => {
     expect(mockCollection).toHaveBeenCalledTimes(4);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.hexagramCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(4);
-    expect(mockFind).toHaveBeenLastCalledWith({ line_25_id: new ObjectId('595a8b17f271190858935906') }, { _id: 0, img_arr: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ line_25_id: new ObjectId('595a8b17f271190858935906') }, { projection: { _id: 0, img_arr: 1 } });
     expect(mockToArray).toHaveBeenCalledTimes(4);
     expect(searchForReadings).toHaveBeenCalledTimes(5);
     // expect(error).not.toHaveBeenCalled();
@@ -161,7 +161,7 @@ describe('search-readings', () => {
     expect(mockCollection).toHaveBeenCalledTimes(5);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.hexagramCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(5);
-    expect(mockFind).toHaveBeenLastCalledWith({ line_46_id: new ObjectId('595a8b17f271190858935906') }, { _id: 0, img_arr: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ line_46_id: new ObjectId('595a8b17f271190858935906') }, { projection: { _id: 0, img_arr: 1 } });
     expect(mockToArray).toHaveBeenCalledTimes(5);
     expect(searchForReadings).toHaveBeenCalledTimes(6);
     // expect(error).not.toHaveBeenCalled();

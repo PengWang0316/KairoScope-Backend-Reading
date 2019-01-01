@@ -25,7 +25,7 @@ const handler = async (event, context, callback) => {
       if (query.line25Id !== 0) queryObject.line_25_id = new ObjectId(query.line25Id);
       if (query.line46Id !== 0) queryObject.line_46_id = new ObjectId(query.line46Id);
       getDB().collection(hexagramCollectionName)
-        .find(queryObject, { _id: 0, img_arr: 1 }).toArray((err, results) => {
+        .find(queryObject, { projection: { _id: 0, img_arr: 1 } }).toArray((err, results) => {
           searchForReadings(query, returnResult => resolve(returnResult), results);
         });
     } else searchForReadings(query, returnResult => resolve(returnResult));

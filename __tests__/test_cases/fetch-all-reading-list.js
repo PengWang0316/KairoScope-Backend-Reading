@@ -29,16 +29,16 @@ describe('fetch-all-reading-list: invoke the Get / endpoint', () => {
     res.body.forEach(reading => {
       expect(Object.prototype.hasOwnProperty.call(reading, '_id')).toBe(true);
       expect(Object.prototype.hasOwnProperty.call(reading, 'reading_name')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'hexagram_arr_1')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'hexagram_arr_2')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'img1')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'img2')).toBe(true);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'hexagram_arr_1')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'hexagram_arr_2')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'img1')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'img2')).toBe(false);
       expect(Object.prototype.hasOwnProperty.call(reading, 'date')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'change_lines')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'change_lines_text')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'people')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'userName')).toBe(true);
-      expect(Object.prototype.hasOwnProperty.call(reading, 'user_id')).toBe(true);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'change_lines')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'change_lines_text')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'people')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'userName')).toBe(false);
+      expect(Object.prototype.hasOwnProperty.call(reading, 'user_id')).toBe(false);
     });
   });
 });

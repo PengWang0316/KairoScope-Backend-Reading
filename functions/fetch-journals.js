@@ -15,7 +15,7 @@ const handler = async (event, context, callback) => {
 
   const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => promiseFindResult(db => db
     .collection(readingCollectionName)
-    .find(query, { journal_entries: 1 })));
+    .find(query, { projection: { journal_entries: 1 } })));
 
   const journalEntries = result[0].journal_entries;
   journalEntries

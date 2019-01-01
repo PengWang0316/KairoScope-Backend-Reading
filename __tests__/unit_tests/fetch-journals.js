@@ -29,7 +29,7 @@ describe('fetch-journals', () => {
     expect(mockCollection).toHaveBeenCalledTimes(1);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.readingCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(1);
-    expect(mockFind).toHaveBeenLastCalledWith({ _id: new ObjectId(event.queryStringParameters.readingId), user_id: 'id' }, { journal_entries: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ _id: new ObjectId(event.queryStringParameters.readingId), user_id: 'id' }, { projection: { journal_entries: 1 } });
     expect(callback).toHaveBeenCalledTimes(1);
     expect(callback).toHaveBeenLastCalledWith(null, { statusCode: 200, body: '[{"date":"03/17/1982"},{"date":"03/16/1982"},{"date":"03/15/1982"}]' });
   });
@@ -50,7 +50,7 @@ describe('fetch-journals', () => {
     expect(mockCollection).toHaveBeenCalledTimes(2);
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.readingCollectionName);
     expect(mockFind).toHaveBeenCalledTimes(2);
-    expect(mockFind).toHaveBeenLastCalledWith({ _id: new ObjectId(event.queryStringParameters.readingId) }, { journal_entries: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ _id: new ObjectId(event.queryStringParameters.readingId) }, { projection: { journal_entries: 1 } });
     expect(callback).toHaveBeenCalledTimes(1);
     expect(callback).toHaveBeenLastCalledWith(null, { statusCode: 200, body: '[{"date":"03/17/1982"},{"date":"03/16/1982"},{"date":"03/15/1982"}]' });
   });

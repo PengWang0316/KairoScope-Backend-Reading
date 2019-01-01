@@ -34,7 +34,7 @@ describe('fetch-all-reading-list', () => {
     expect(mockCollection).toHaveBeenCalledTimes(1);
     expect(mockCollection).toHaveBeenLastCalledWith('reading');
     expect(mockFind).toHaveBeenCalledTimes(1);
-    expect(mockFind).toHaveBeenLastCalledWith({ user_id: 'id' }, { reading_name: 1, date: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ user_id: 'id' }, { projection: { reading_name: 1, date: 1 } });
     expect(mockSkip).toHaveBeenCalledTimes(1);
     expect(mockSkip).toHaveBeenLastCalledWith(0);
     expect(mockLimit).toHaveBeenCalledTimes(1);
@@ -62,7 +62,7 @@ describe('fetch-all-reading-list', () => {
     expect(mockCollection).toHaveBeenCalledTimes(2);
     expect(mockCollection).toHaveBeenLastCalledWith('reading');
     expect(mockFind).toHaveBeenCalledTimes(2);
-    expect(mockFind).toHaveBeenLastCalledWith({ user_id: 'id' }, { reading_name: 1, date: 1 });
+    expect(mockFind).toHaveBeenLastCalledWith({ user_id: 'id' }, { projection: { reading_name: 1, date: 1 } });
     expect(mockSkip).toHaveBeenCalledTimes(2);
     expect(mockSkip).toHaveBeenLastCalledWith(20);
     expect(mockLimit).toHaveBeenCalledTimes(2);
