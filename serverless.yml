@@ -134,3 +134,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  delete-journal:
+      handler: functions/delete-journal.handler
+      events:
+        - http:
+            path: /journals/delete
+            method: put
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
