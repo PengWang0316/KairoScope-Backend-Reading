@@ -137,4 +137,27 @@ describe('verity-user middleware', () => {
     expect(log.info).not.toHaveBeenCalled();
     expect(mockCallback).not.toHaveBeenCalled();
   });
+
+  test('has body verify without jwt message', () => {
+    const verifyJwt = require('../../../libs/VerifyJWT');
+    verifyJwt.mockReturnValueOnce({ _id: 'id', role: '1' });
+    const log = require('../../../libs/log');
+    log.info = jest.fn();
+    const mockNext = jest.fn();
+    const mockCallback = jest.fn();
+    const context = { functionName: 'functionName', jwtSecret: 'jwtSecret' };
+
+    verifyUser.before({
+      event: { body: '{}' },
+      context,
+      callback: mockCallback,
+    }, mockNext);
+
+    expect(verifyJwt).toHaveBeenCalledTimes(4);
+    expect(mockNext).not.toHaveBeenCalled();
+    expect(log.info).toHaveBeenCalledTimes(1);
+    expect(log.info).toHaveBeenLastCalledWith('Invalid user tried to call functionName');
+    expect(mockCallback).toHaveBeenCalledTimes(1);
+    expect(mockCallback).toHaveBeenLastCalledWith(null, { body: 'Invalid User' });
+  });
 });
