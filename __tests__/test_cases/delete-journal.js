@@ -1,4 +1,3 @@
-
 import { ObjectId } from 'mongodb';
 
 import { invokeDeleteJournal } from '../helpers/InvokeHelper';
@@ -33,7 +32,7 @@ describe('delete-journal: invoke the Get / endpoint', () => {
       jwtSecret: process.env['jwt-secret'],
     };
     await initialConnects(context.dbUrl, context.dbName);
-    // await addOneJournal(); // Add one journal to the reading
+    await addOneJournal(); // Add one journal to the reading
   });
 
   test('invoke delete-journal function', async () => {
@@ -44,8 +43,8 @@ describe('delete-journal: invoke the Get / endpoint', () => {
       body: `{ "readingIds": ["${readingId}"], "journalId": "${journalId}", "jwtMessage": "${process.env.jwt}" }`,
     };
 
-    // const beforeResult = await promiseFindResult(db => db.collection(process.env.readingCollectionName).find({ _id: new ObjectId(readingId) }, { projection: { journal_entries: 1 } }));
-    // expect(beforeResult[0].journal_entries.length).toBe(2);
+    const beforeResult = await promiseFindResult(db => db.collection(process.env.readingCollectionName).find({ _id: new ObjectId(readingId) }, { projection: { journal_entries: 1 } }));
+    expect(beforeResult[0].journal_entries.length).toBe(2);
 
     await invokeDeleteJournal(event, context);
 
