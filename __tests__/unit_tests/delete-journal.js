@@ -35,6 +35,6 @@ describe('delete-journal', () => {
       { multi: true },
     );
     expect(callback).toHaveBeenCalledTimes(1);
-    expect(callback).toHaveBeenLastCalledWith(null, { statusCode: 200, body: 'ok' });
+    expect(callback).toHaveBeenLastCalledWith(null, { statusCode: 200 });
   });
 });
