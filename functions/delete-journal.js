@@ -20,7 +20,7 @@ const handler = async (event, context, callback) => {
 
   callback(null, {
     statusCode: 200,
-    body: 'ok',
+    // body: {},
   });
 };
 module.exports.handler = wrapper(handler);

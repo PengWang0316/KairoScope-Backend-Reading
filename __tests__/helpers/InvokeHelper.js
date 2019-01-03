@@ -97,6 +97,10 @@ const invokeFetchReadingsByName = (event, context) => isIntegrationTest
   ? viaHandler('fetch-readings-by-name', event, context)
   : viaHttp('readings/search/name?keyWord=test', { iam: false, isJwt: true });
 
+const invokeDeleteJournal = (event, context) => isIntegrationTest
+  ? viaHandler('delete-journal', event, context)
+  : viaHttp('journals/delete', { iam: false, isJwt: false, body: JSON.parse(event.body) }, 'put');
+
 // const invokeGetRestaurants = () => testMode === 'integration'
 //   ? viaHandler('get-restaurants') : viaHttp('restaurants', 'get', { iam: true });
 
@@ -112,4 +116,5 @@ module.exports = {
   invokeFetchReadingsByHexagramId,
   invokeFetchJournals,
   invokeFetchReadingsByName,
+  invokeDeleteJournal,
 };
