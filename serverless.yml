@@ -145,3 +145,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+    
+  delete-reading:
+      handler: functions/delete-reading.handler
+      events:
+        - http:
+            path: /readings
+            method: delete
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
