@@ -14,7 +14,7 @@ const checkHexagramImageReadAndCallback = (checkNumber, targetNumber, callback, 
   * @param {function} callback is a function will be transfered to anther function.
   * @return {null} No return.
  */
-const findHexagramImages = (readings, callback) => {
+const findHexagramImages = async (readings, callback) => {
   let checkNumber = 0;
   const targetNumber = readings.length * 2;
   // Making a copy for the readings. So, the code below is safe when change reading in the forEach function.
