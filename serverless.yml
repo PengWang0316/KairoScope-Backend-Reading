@@ -156,3 +156,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  fetch-journal-by-ids:
+      handler: functions/fetch-journal-by-ids.handler
+      events:
+        - http:
+            path: /journals/byIds
+            method: get
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
