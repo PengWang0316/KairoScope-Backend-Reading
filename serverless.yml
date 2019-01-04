@@ -167,3 +167,14 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+
+  create-reading:
+      handler: functions/create-reading.handler
+      events:
+        - http:
+            path: /readings
+            method: post
+            cors: true
+      memorySize: 512
+      environment:
+        async_metrics: true
