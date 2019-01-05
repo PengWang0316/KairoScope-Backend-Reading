@@ -105,6 +105,10 @@ const invokeDeleteJournal = (event, context) => isIntegrationTest
   ? viaHandler('delete-journal', event, context)
   : viaHttp('journals/delete', { iam: false, isJwt: false, body: JSON.parse(event.body) }, 'put');
 
+const invokeCreateReading = (event, context) => isIntegrationTest
+  ? viaHandler('create-reading', event, context)
+  : viaHttp('readings', { iam: false, isJwt: false, body: JSON.parse(event.body) }, 'post');
+
 // A customized fake jwt message is used to isolate this test case from others
 const invokeDeleteReading = (event, context) => isIntegrationTest
   ? viaHandler('delete-reading', event, context)
@@ -128,4 +132,5 @@ module.exports = {
   invokeDeleteJournal,
   invokeDeleteReading,
   invokeFetchJournalByIds,
+  invokeCreateReading,
 };
