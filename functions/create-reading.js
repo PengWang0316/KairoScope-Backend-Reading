@@ -23,13 +23,15 @@ const handler = async (event, context, callback) => {
       getDB().collection(hexagramCollectionName).find({ img_arr: reading.hexagram_arr_1 })
         .next((err1, img1Info) => {
           if (err1) reject(err1);
-          readingResult.img1Info = img1Info;
-          getDB().collection(hexagramCollectionName).find({ img_arr: reading.hexagram_arr_2 })
-            .next((err2, img2Info) => {
-              if (err2) reject(err2);
-              readingResult.img2Info = img2Info;
-              resolve(readingResult);
-            });
+          else {
+            readingResult.img1Info = img1Info;
+            getDB().collection(hexagramCollectionName).find({ img_arr: reading.hexagram_arr_2 })
+              .next((err2, img2Info) => {
+                if (err2) reject(err2);
+                readingResult.img2Info = img2Info;
+                resolve(readingResult);
+              });
+          }
         });
     }));
 
