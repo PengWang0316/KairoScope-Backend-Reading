@@ -93,6 +93,10 @@ const invokeFetchJournals = (event, context) => isIntegrationTest
   ? viaHandler('fetch-journals', event, context)
   : viaHttp('journals?readingId=5a5ab536c4c2a907932b1f7c', { iam: false, isJwt: true });
 
+const invokeFetchJournal = (event, context) => isIntegrationTest
+  ? viaHandler('fetch-journal', event, context)
+  : viaHttp(`journal?journalId=${event.queryStringParameters.journalId}`, { iam: false, isJwt: true });
+
 const invokeFetchJournalByIds = (event, context) => isIntegrationTest
   ? viaHandler('fetch-journal-by-ids', event, context)
   : viaHttp('journals/byIds?readingId=5b5df01aa569a07d26359eee&journalId=5bf39beefb84fc0fa3e2632e', { iam: false, isJwt: true });
@@ -133,4 +137,5 @@ module.exports = {
   invokeDeleteReading,
   invokeFetchJournalByIds,
   invokeCreateReading,
+  invokeFetchJournal,
 };
