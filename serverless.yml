@@ -57,6 +57,13 @@ provider:
       Action: ssm:GetParameters*
       Resource: arn:aws:ssm:#{AWS::Region}:#{AWS::AccountId}:parameter/kairoscope/${self:custom.stage}/*
 
+package:
+  exclude:
+    - coverage/**
+    - __tests__/**
+    - build*
+    - Information.txt
+
 functions:
   fetch-readings-amount:
     handler: functions/fetch-readings-amount.handler
