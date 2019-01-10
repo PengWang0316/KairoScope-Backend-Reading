@@ -67,7 +67,9 @@ functions:
           cors: true
     memorySize: 512
     environment:
-      async_metrics: true # Use this variable to control whether send the metrics to CloudWatch Async      
+      async_metrics: true # Use this variable to control whether send the metrics to CloudWatch Async
+    layers:
+      - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-readings:
       handler: functions/fetch-readings.handler
@@ -79,6 +81,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   search-readings:
       handler: functions/search-readings.handler
@@ -90,6 +94,8 @@ functions:
       memorySize: 1024
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-all-reading-list:
       handler: functions/fetch-all-reading-list.handler
@@ -101,6 +107,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-readings-by-hexagram-id:
       handler: functions/fetch-readings-by-hexagram-id.handler
@@ -112,6 +120,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-journals:
       handler: functions/fetch-journals.handler
@@ -123,6 +133,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-readings-by-name:
       handler: functions/fetch-readings-by-name.handler
@@ -134,6 +146,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   delete-journal:
       handler: functions/delete-journal.handler
@@ -145,6 +159,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
     
   delete-reading:
       handler: functions/delete-reading.handler
@@ -156,6 +172,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-journal-by-ids:
       handler: functions/fetch-journal-by-ids.handler
@@ -167,6 +185,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   create-reading:
       handler: functions/create-reading.handler
@@ -178,6 +198,8 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
 
   fetch-journal:
       handler: functions/fetch-journal.handler
@@ -189,3 +211,5 @@ functions:
       memorySize: 512
       environment:
         async_metrics: true
+      layers:
+        - ${cf:lambda-layers-dev.KairoscopeDependenciesLayerExport}
