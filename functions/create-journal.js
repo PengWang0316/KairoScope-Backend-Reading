@@ -21,7 +21,7 @@ const handler = async (event, context, callback) => {
   journal.pingPongStates = journal.readings; // Changing the name to poingPongStates
   delete journal.readings;
   try {
-    await cloudwatch.trackExecTime('', () => promiseInsertResult(db => db
+    await cloudwatch.trackExecTime('MongoDbUpdateLatancy', () => promiseInsertResult(db => db
       .collection(readingCollectionName)
       .update(
         { _id: { $in: readingObjectIdArray } },
