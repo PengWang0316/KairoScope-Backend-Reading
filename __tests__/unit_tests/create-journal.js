@@ -44,7 +44,7 @@ describe('create-journal', () => {
     expect(mockCollection).toHaveBeenLastCalledWith(process.env.readingCollectionName);
     expect(mockUpdate).toHaveBeenCalledTimes(1);
     expect(mockUpdate).toHaveBeenLastCalledWith(
-      { _id: { $in: [mockObjectId, mockObjectId] } },
+      { _id: { $in: [mockObjectId, mockObjectId] }, user_id: context.user._id },
       {
         $push: {
           journal_entries: {

@@ -24,7 +24,7 @@ const handler = async (event, context, callback) => {
     await cloudwatch.trackExecTime('MongoDbUpdateLatancy', () => promiseInsertResult(db => db
       .collection(readingCollectionName)
       .update(
-        { _id: { $in: readingObjectIdArray } },
+        { _id: { $in: readingObjectIdArray }, user_id: context.user._id },
         { $push: { journal_entries: journal } },
         { multi: true },
       )));
