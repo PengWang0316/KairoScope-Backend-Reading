@@ -118,6 +118,11 @@ const invokeDeleteReading = (event, context) => isIntegrationTest
   ? viaHandler('delete-reading', event, context)
   : viaHttp(`readings?jwtMessage=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1OWRlOWU1MDIzNTQzZjhhMjhhYWFhYWEiLCJpYXQiOjF9.Mlxi9iFuyBqShIVRmJVkrc6cHyhFyJbRfO9zScGtzn0&readingId=${context.readingId}`, { iam: false, isJwt: false }, 'delete');
 
+// A customized fake jwt message is used to isolate this test case from others
+const invokeCreateJournal = (event, context) => isIntegrationTest
+  ? viaHandler('create-journal', event, context)
+  : viaHttp(`journal`, { iam: false, isJwt: false, body: JSON.parse(event.body) }, 'post');
+
 // const invokeGetRestaurants = () => testMode === 'integration'
 //   ? viaHandler('get-restaurants') : viaHttp('restaurants', 'get', { iam: true });
 
@@ -138,4 +143,5 @@ module.exports = {
   invokeFetchJournalByIds,
   invokeCreateReading,
   invokeFetchJournal,
+  invokeCreateJournal,
 };
