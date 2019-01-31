@@ -6,7 +6,7 @@ const mockDeleteOne = jest.fn();
 const mockCollection = jest.fn().mockReturnValue({ deleteOne: mockDeleteOne });
 
 jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
-jest.mock('../../libs/MongoDBHelper', () => ({
+jest.mock('@kevinwang0316/mongodb-helper', () => ({
   promiseInsertResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
 // jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
@@ -19,7 +19,7 @@ describe('delete-reading', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
 
     await handler(event, context, callback);

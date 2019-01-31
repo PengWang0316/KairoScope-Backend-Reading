@@ -1,5 +1,5 @@
 import { ObjectId } from 'mongodb';
-import mongodbHelper from '../../libs/MongoDBHelper';
+import mongodbHelper from '@kevinwang0316/mongodb-helper';
 import cloudwatch from '@kevinwang0316/cloudwatch';
 import log from '@kevinwang0316/log';
 
@@ -12,7 +12,7 @@ const mockCollection = jest.fn().mockReturnValue({ update: mockUpdate });
 
 jest.mock('mongodb', () => ({ ObjectId: jest.fn() }));
 jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
-jest.mock('../../libs/MongoDBHelper', () => ({
+jest.mock('@kevinwang0316/mongodb-helper', () => ({
   promiseInsertResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));

@@ -1,7 +1,7 @@
 'use strict';
 
 const wrapper = require('../middlewares/wrapper');
-const { promiseFindResult } = require('../libs/MongoDBHelper');
+const { promiseFindResult } = require('@kevinwang0316/mongodb-helper');
 const cloudwatch = require('@kevinwang0316/cloudwatch');
 
 const { readingCollectionName } = process.env;

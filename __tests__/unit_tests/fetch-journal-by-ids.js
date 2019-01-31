@@ -10,7 +10,7 @@ const mockFind = jest.fn().mockReturnValue({ then: mockThen });
 const mockCollection = jest.fn().mockReturnValue({ findOne: mockFind });
 
 jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
-jest.mock('../../libs/MongoDBHelper', () => ({
+jest.mock('@kevinwang0316/mongodb-helper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
@@ -23,7 +23,7 @@ describe('fetch-journal-by-ids', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
 
@@ -47,7 +47,7 @@ describe('fetch-journal-by-ids', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
     mockThen.mockImplementationOnce(cb => cb({ journal_entries: [journalA] }, 'error'));

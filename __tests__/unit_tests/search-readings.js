@@ -7,7 +7,7 @@ const mockFind = jest.fn().mockReturnValue({ toArray: mockToArray });
 const mockCollection = jest.fn().mockReturnValue({ find: mockFind });
 
 jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
-jest.mock('../../libs/MongoDBHelper', () => ({
+jest.mock('@kevinwang0316/mongodb-helper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 // jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
@@ -21,7 +21,7 @@ describe('search-readings', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
@@ -45,7 +45,7 @@ describe('search-readings', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
@@ -71,7 +71,7 @@ describe('search-readings', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
@@ -97,7 +97,7 @@ describe('search-readings', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
@@ -123,7 +123,7 @@ describe('search-readings', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
@@ -149,7 +149,7 @@ describe('search-readings', () => {
       user: { _id: 'id', role: 1 },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');

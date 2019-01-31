@@ -6,7 +6,7 @@ const mockFind = jest.fn().mockReturnValue([{ journal_entries: [{ date: '03/16/1
 const mockCollection = jest.fn().mockReturnValue({ find: mockFind });
 
 jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler);
-jest.mock('../../libs/MongoDBHelper', () => ({
+jest.mock('@kevinwang0316/mongodb-helper', () => ({
   promiseFindResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
 // jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
@@ -19,7 +19,7 @@ describe('fetch-journals', () => {
       user: { _id: 'id' },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
 
     await handler(event, context, callback);
@@ -40,7 +40,7 @@ describe('fetch-journals', () => {
       user: { _id: 'id', role: 1 },
     };
     const callback = jest.fn();
-    const mongodb = require('../../libs/MongoDBHelper');
+    const mongodb = require('@kevinwang0316/mongodb-helper');
     const cloudwatch = require('@kevinwang0316/cloudwatch');
 
     await handler(event, context, callback);

@@ -3,7 +3,7 @@
 const { ObjectId } = require('mongodb');
 
 const wrapper = require('../middlewares/wrapper');
-const { getDB } = require('../libs/MongoDBHelper');
+const { getDB } = require('@kevinwang0316/mongodb-helper');
 const cloudwatch = require('@kevinwang0316/cloudwatch');
 const log = require('@kevinwang0316/log');
 
