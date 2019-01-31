@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 
 const wrapper = require('../middlewares/wrapper');
 const { promiseInsertResult } = require('../libs/MongoDBHelper');
-const cloudwatch = require('../libs/cloudwatch');
+const cloudwatch = require('@kevinwang0316/cloudwatch');
 
 const { readingCollectionName } = process.env;
 

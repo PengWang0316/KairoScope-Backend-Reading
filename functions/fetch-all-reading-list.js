@@ -2,7 +2,7 @@
 
 const wrapper = require('../middlewares/wrapper');
 const { promiseFindResult } = require('../libs/MongoDBHelper');
-const cloudwatch = require('../libs/cloudwatch');
+const cloudwatch = require('@kevinwang0316/cloudwatch');
 
 const { readingCollectionName } = process.env;
 

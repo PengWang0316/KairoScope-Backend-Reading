@@ -13,7 +13,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 jest.mock('../../functions/libs/find-hexagram-images', () => jest.fn().mockImplementation((result, cb) => cb([{}])));
 
 describe('fetch-readings', () => {
@@ -24,7 +24,7 @@ describe('fetch-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
 
@@ -56,7 +56,7 @@ describe('fetch-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb(null, [{}]));
@@ -89,7 +89,7 @@ describe('fetch-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb('error message', [{}]));

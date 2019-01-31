@@ -13,7 +13,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 // let clock;
 
@@ -32,7 +32,7 @@ describe('create-reading', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
@@ -66,7 +66,7 @@ describe('create-reading', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
     mockInsert.mockImplementationOnce((readingA, cb) => cb('insert error', { ops: [readingA] }));
 
@@ -94,7 +94,7 @@ describe('create-reading', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
     mockNext.mockImplementationOnce(cb => cb('the first next error', 'imgInfo'));
 
@@ -122,7 +122,7 @@ describe('create-reading', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
     mockNext.mockImplementationOnce(cb => cb(null, 'imgInfo'));
     mockNext.mockImplementationOnce(cb => cb('the second next error', 'imgInfo'));

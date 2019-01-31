@@ -3,7 +3,7 @@
 const wrapper = require('../middlewares/wrapper');
 const { getDB } = require('../libs/MongoDBHelper');
 const log = require('@kevinwang0316/log');
-const cloudwatch = require('../libs/cloudwatch');
+const cloudwatch = require('@kevinwang0316/cloudwatch');
 const findHexagramImages = require('./libs/find-hexagram-images');
 
 const { readingCollectionName } = process.env;

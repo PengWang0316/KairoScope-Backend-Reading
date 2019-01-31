@@ -10,7 +10,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
   promiseInsertResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
 // jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('delete-reading', () => {
   test('Verified user calls', async () => {
@@ -20,7 +20,7 @@ describe('delete-reading', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
 
     await handler(event, context, callback);
 

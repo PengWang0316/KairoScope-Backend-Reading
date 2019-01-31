@@ -13,7 +13,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('fetch-journal', () => {
   test('Verified user calls', async () => {
@@ -23,7 +23,7 @@ describe('fetch-journal', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
@@ -55,7 +55,7 @@ describe('fetch-journal', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const log = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb('Error Message', readingResult));
 

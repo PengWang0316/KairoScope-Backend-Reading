@@ -13,7 +13,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
     collection: mockCollection,
   })),
 }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('fetch-readings-by-name', () => {
   test('Verified user calls', async () => {
@@ -23,7 +23,7 @@ describe('fetch-readings-by-name', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
 
     await handler(event, context, callback);
 

@@ -11,7 +11,7 @@ jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
 // jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
-jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
+jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 jest.mock('../../functions/libs/search-for-readings', () => jest.fn().mockImplementation((query, cb, results) => cb({})));
 
 describe('search-readings', () => {
@@ -22,7 +22,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
@@ -46,7 +46,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
@@ -72,7 +72,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
@@ -98,7 +98,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
@@ -124,7 +124,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
@@ -150,7 +150,7 @@ describe('search-readings', () => {
     };
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
-    const cloudwatch = require('../../libs/cloudwatch');
+    const cloudwatch = require('@kevinwang0316/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
     // const { error } = require('@kevinwang0316/log');
 
