@@ -1,7 +1,8 @@
 'use strict';
 
 const log = require('@kevinwang0316/log');
-const { getDB } = require('../../libs/MongoDBHelper');
+const { getDB } = require('@kevinwang0316/mongodb-helper');
+
 const findHexagramImages = require('./find-hexagram-images');
 
 const { readingCollectionName } = process.env;

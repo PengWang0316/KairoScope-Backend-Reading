@@ -6,11 +6,11 @@ const mockNext = jest.fn().mockImplementationOnce(cb => cb(null, 'imgInfo1')).mo
 const mockFind = jest.fn().mockReturnValue({ next: mockNext });
 const mockCollection = jest.fn().mockReturnValue({ find: mockFind });
 
-jest.mock('../../../libs/MongoDBHelper', () => ({ getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })) }));
+jest.mock('@kevinwang0316/mongodb-helper', () => ({ getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })) }));
 
 describe('find-hexagram-images', () => {
   test('findHexagramImages', () => {
-    const { getDB } = require('../../../libs/MongoDBHelper');
+    const { getDB } = require('@kevinwang0316/mongodb-helper');
     const mockCallback = jest.fn();
     const readings = [{ hexagram_arr_1: 'hexagramArr1', hexagram_arr_2: 'hexagramArr2' }];
 

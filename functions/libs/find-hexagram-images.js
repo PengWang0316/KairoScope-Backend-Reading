@@ -1,6 +1,6 @@
 'use strict';
 
-const { getDB } = require('../../libs/MongoDBHelper');
+const { getDB } = require('@kevinwang0316/mongodb-helper');
 
 const { hexagramCollectionName } = process.env;
 // TODO should be refactored to use Redux match the result from the front-end

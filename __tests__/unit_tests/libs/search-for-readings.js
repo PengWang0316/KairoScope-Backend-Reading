@@ -7,13 +7,13 @@ const mockSort = jest.fn().mockReturnValue({ toArray: mockToArray });
 const mockFind = jest.fn().mockReturnValue({ sort: mockSort });
 const mockCollection = jest.fn().mockReturnValue({ find: mockFind });
 
-jest.mock('../../../libs/MongoDBHelper', () => ({ getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })) }));
+jest.mock('@kevinwang0316/mongodb-helper', () => ({ getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })) }));
 jest.mock('../../../functions/libs/find-hexagram-images', () => jest.fn());
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 
 describe('search-for-readings', () => {
   test('search-for-readings with 0 results', () => {
-    const { getDB } = require('../../../libs/MongoDBHelper');
+    const { getDB } = require('@kevinwang0316/mongodb-helper');
     const findHexagramImages = require('../../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     const query = {};
@@ -34,7 +34,7 @@ describe('search-for-readings', () => {
   });
 
   test('search-for-readings with no results', () => {
-    const { getDB } = require('../../../libs/MongoDBHelper');
+    const { getDB } = require('@kevinwang0316/mongodb-helper');
     const findHexagramImages = require('../../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     const query = {};
@@ -59,7 +59,7 @@ describe('search-for-readings', () => {
   });
 
   test('search-for-readings with 1 results and endDate', () => {
-    const { getDB } = require('../../../libs/MongoDBHelper');
+    const { getDB } = require('@kevinwang0316/mongodb-helper');
     const findHexagramImages = require('../../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     const query = { endDate: '03/16/1982', startDate: '03/15/1982' };
@@ -94,7 +94,7 @@ describe('search-for-readings', () => {
   });
 
   test('search-for-readings with 1 results not endDate', () => {
-    const { getDB } = require('../../../libs/MongoDBHelper');
+    const { getDB } = require('@kevinwang0316/mongodb-helper');
     const findHexagramImages = require('../../../functions/libs/find-hexagram-images');
     const { error } = require('@kevinwang0316/log');
     const query = { startDate: '03/15/1982', people: 'people', userId: 'userId' };
