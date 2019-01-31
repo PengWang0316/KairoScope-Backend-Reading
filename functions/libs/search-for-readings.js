@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('../../libs/log');
+const log = require('@kevinwang0316/log');
 const { getDB } = require('../../libs/MongoDBHelper');
 const findHexagramImages = require('./find-hexagram-images');
 
