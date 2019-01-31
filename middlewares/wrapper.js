@@ -10,9 +10,9 @@ const {
 
 const { STAGE } = process.env;
 
+const verifyUser = require('./verify-user');
 const sampleLogging = require('./sample-logging');
 const initializeMongodb = require('./initialize-mongodb');
-const verifyUser = require('./verify-user');
 const mongoSanitize = require('./mongo-sanitize');
 // const functionShield = require('./function-shield');
 

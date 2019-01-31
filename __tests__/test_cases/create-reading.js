@@ -1,5 +1,6 @@
+import { initialConnects, getDB, promiseReturnResult } from '@kevinwang0316/mongodb-helper';
+
 import { invokeCreateReading } from '../helpers/InvokeHelper';
-import { initialConnects, getDB, promiseReturnResult } from '../../libs/MongoDBHelper';
 import initEvns from '../helpers/InitialEnvs';
 
 let context;

@@ -4,7 +4,7 @@ const verifyJWT = require('@kevinwang0316/jwt-verify');
 const log = require('@kevinwang0316/log');
 
 const { jwtName } = process.env;
-
+console.log(verifyJWT);
 module.exports = {
   before: (handler, next) => {
     let jwtMessage;
