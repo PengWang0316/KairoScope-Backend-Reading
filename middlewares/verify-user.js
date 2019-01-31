@@ -1,6 +1,6 @@
 'use strict';
 
-const verifyJWT = require('../libs/VerifyJWT');
+const verifyJWT = require('@kevinwang0316/jwt-verify');
 const log = require('@kevinwang0316/log');
 
 const { jwtName } = process.env;
