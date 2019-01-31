@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb';
 import mongodbHelper from '../../libs/MongoDBHelper';
 import cloudwatch from '../../libs/cloudwatch';
-import log from '../../libs/log';
+import log from '@kevinwang0316/log';
 
 require('../helpers/initailEnvsForUnitTest');
 
@@ -15,7 +15,7 @@ jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler)
 jest.mock('../../libs/MongoDBHelper', () => ({
   promiseInsertResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
-jest.mock('../../libs/log', () => ({ error: jest.fn() }));
+jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('create-journal', () => {

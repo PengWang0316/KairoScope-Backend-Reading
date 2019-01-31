@@ -12,7 +12,7 @@ jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler)
 jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
-jest.mock('../../libs/log', () => ({ error: jest.fn() }));
+jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 jest.mock('../../functions/libs/find-hexagram-images', () => jest.fn().mockImplementation((result, cb) => cb([{}])));
 
@@ -26,7 +26,7 @@ describe('fetch-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
-    const { error } = require('../../libs/log');
+    const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -58,7 +58,7 @@ describe('fetch-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
-    const { error } = require('../../libs/log');
+    const { error } = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb(null, [{}]));
 
     await handler(event, context, callback);
@@ -91,7 +91,7 @@ describe('fetch-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const findHexagramImages = require('../../functions/libs/find-hexagram-images');
-    const { error } = require('../../libs/log');
+    const { error } = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb('error message', [{}]));
 
     await handler(event, context, callback);

@@ -12,7 +12,7 @@ jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler)
 jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
-jest.mock('../../libs/log', () => ({ error: jest.fn() }));
+jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('fetch-journal', () => {
@@ -24,7 +24,7 @@ describe('fetch-journal', () => {
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
-    const log = require('../../libs/log');
+    const log = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -56,7 +56,7 @@ describe('fetch-journal', () => {
     const callback = jest.fn();
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
-    const log = require('../../libs/log');
+    const log = require('@kevinwang0316/log');
     mockToArray.mockImplementationOnce(cb => cb('Error Message', readingResult));
 
     await handler(event, context, callback);

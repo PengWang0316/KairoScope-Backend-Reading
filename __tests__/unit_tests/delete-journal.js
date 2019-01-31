@@ -9,7 +9,7 @@ jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler)
 jest.mock('../../libs/MongoDBHelper', () => ({
   promiseInsertResult: jest.fn().mockImplementation(cb => cb({ collection: mockCollection })),
 }));
-// jest.mock('../../libs/log', () => ({ error: jest.fn() }));
+// jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 
 describe('delete-journal', () => {

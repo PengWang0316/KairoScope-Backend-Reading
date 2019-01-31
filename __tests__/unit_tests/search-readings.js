@@ -10,7 +10,7 @@ jest.mock('../../middlewares/wrapper', () => functionHandler => functionHandler)
 jest.mock('../../libs/MongoDBHelper', () => ({
   getDB: jest.fn().mockImplementation(() => ({ collection: mockCollection })),
 }));
-// jest.mock('../../libs/log', () => ({ error: jest.fn() }));
+// jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('../../libs/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
 jest.mock('../../functions/libs/search-for-readings', () => jest.fn().mockImplementation((query, cb, results) => cb({})));
 
@@ -24,7 +24,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -48,7 +48,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -74,7 +74,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -100,7 +100,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -126,7 +126,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
@@ -152,7 +152,7 @@ describe('search-readings', () => {
     const mongodb = require('../../libs/MongoDBHelper');
     const cloudwatch = require('../../libs/cloudwatch');
     const searchForReadings = require('../../functions/libs/search-for-readings');
-    // const { error } = require('../../libs/log');
+    // const { error } = require('@kevinwang0316/log');
 
     await handler(event, context, callback);
 
