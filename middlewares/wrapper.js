@@ -7,14 +7,12 @@ const middy = require('middy');
 const {
   cors, functionShield, ssm, doNotWaitForEmptyEventLoop,
 } = require('middy/middlewares');
+const {
+  verifyJWT, initializeMongoDB, mongoSanitize, sampleLogging,
+} = require('@kevinwang0316/lambda-middlewares');
 
 const { STAGE } = process.env;
 
-const verifyUser = require('./verify-user');
-const sampleLogging = require('./sample-logging');
-const initializeMongodb = require('./initialize-mongodb');
-const mongoSanitize = require('./mongo-sanitize');
-// const functionShield = require('./function-shield');
 
 module.exports = func => middy(func)
   .use(cors({
@@ -43,5 +41,5 @@ module.exports = func => middy(func)
   }))
   .use(mongoSanitize)
   .use(doNotWaitForEmptyEventLoop())
-  .use(initializeMongodb)
-  .use(verifyUser);
+  .use(initializeMongoDB)
+  .use(verifyJWT);
