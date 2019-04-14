@@ -21,7 +21,9 @@
       "__tests__/debug_events/"
     ]
   },
-  "dependencies": {},
+  "dependencies": {
+    "@kevinwang0316/redis-helper": "^1.0.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.2.0",
     "@babel/preset-env": "^7.2.0",
