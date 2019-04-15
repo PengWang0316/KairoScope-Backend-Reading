@@ -46,11 +46,12 @@ const findHexagramImages = async (redisHost, redisPort, redisPassword, readings,
   try {
     log.debug('Initializing Redis client');
     createClient(redisHost, redisPort, redisPassword);
-    const hexagrams = await cloudwatch.trackExecTime('RedisGetLatency', () => getAsync(redisKeyHexagrams));
+    let hexagrams = await cloudwatch.trackExecTime('RedisGetLatency', () => getAsync(redisKeyHexagrams));
     // Fall back to read from the db if the Redis does not have the info
     if (hexagrams === null) await findHexagramImagesFromDB(readings, callback);
     else {
       log.debug('Cache hit');
+      hexagrams = JSON.parse(hexagrams);
       readings.forEach(reading => {
         reading.img1Info = hexagrams[reading.hexagram_arr_1];
         reading.img2Info = hexagrams[reading.hexagram_arr_2];
