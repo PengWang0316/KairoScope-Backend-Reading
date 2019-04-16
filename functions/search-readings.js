@@ -12,8 +12,11 @@ const {
 } = process.env;
 
 const handler = async (event, context, callback) => {
+  const {
+    user, redisHost, redisPort, redisPassword,
+  } = context;
   const query = JSON.parse(event.queryStringParameters.searchCriterias);
-  if (context.user.role * 1 !== ADMINISTRATOR_ROLE * 1) query.userId = context.user._id;
+  if (user.role * 1 !== ADMINISTRATOR_ROLE * 1) query.userId = user._id;
 
   const result = await cloudwatch.trackExecTime('MongoDBFindLatency', () => new Promise((resolve, reject) => {
     if (query.upperId !== 0 || query.lowerId !== 0
@@ -26,9 +29,9 @@ const handler = async (event, context, callback) => {
       if (query.line46Id !== 0) queryObject.line_46_id = new ObjectId(query.line46Id);
       getDB().collection(hexagramCollectionName)
         .find(queryObject, { projection: { _id: 0, img_arr: 1 } }).toArray((err, results) => {
-          searchForReadings(query, returnResult => resolve(returnResult), results);
+          searchForReadings(redisHost, redisPort, redisPassword, query, returnResult => resolve(returnResult), results);
         });
-    } else searchForReadings(query, returnResult => resolve(returnResult));
+    } else searchForReadings(redisHost, redisPort, redisPassword, query, returnResult => resolve(returnResult));
   }));
 
   callback(null, {

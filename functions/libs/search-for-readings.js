@@ -7,12 +7,15 @@ const findHexagramImages = require('./find-hexagram-images');
 
 const { readingCollectionName } = process.env;
 /** Working with method below to search readings based on the hexagram.
+  * @param {string} redisHost is the url for the Redis host server.
+  * @param {string} redisPort is the port for the Redis host server.
+  * @param {string} redisPassword is the password for the Redis host server.
   * @param {object} query is an object that has reading's information that a user wants to search.
   * @param {function} callback is the function that will be executed after this function's call.
   * @param {object} results is the object that comes from hexagram search.
   * @return {null} No return.
 */
-function searchForReadings(query, callback, results) {
+const searchForReadings = async (redisHost, redisPort, redisPassword, query, callback, results) => {
   // assemble query object for MongoDB
   const queryArray = [];
   if (query.people) queryArray.push({ people: new RegExp(`.*${query.people}.*`) });
@@ -48,13 +51,13 @@ function searchForReadings(query, callback, results) {
   }
   if (queryArray.length === 0) queryArray.push({}); // if no one searching criteria was given, give a empty array to query, which will pull out all readings.
 
-  getDB().collection(readingCollectionName)
+  await getDB().collection(readingCollectionName)
     .find({ $and: queryArray }).sort({ date: -1 })
-    .toArray((err, result) => {
+    .toArray(async (err, result) => {
       if (err) log.error(`searchForReadings: ${err}`);
-      if (result.length !== 0) findHexagramImages(result, callback);
-      callback(result);
+      if (result.length !== 0) await findHexagramImages(redisHost, redisPort, redisPassword, result, callback);
+      else callback(result);
     });
-}
+};
 
 module.exports = searchForReadings;
