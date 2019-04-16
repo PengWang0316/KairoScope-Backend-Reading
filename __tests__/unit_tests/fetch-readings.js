@@ -14,7 +14,7 @@ jest.mock('@kevinwang0316/mongodb-helper', () => ({
 }));
 jest.mock('@kevinwang0316/log', () => ({ error: jest.fn() }));
 jest.mock('@kevinwang0316/cloudwatch', () => ({ trackExecTime: jest.fn().mockImplementation((name, func) => func()) }));
-jest.mock('../../functions/libs/find-hexagram-images', () => jest.fn().mockImplementation((result, cb) => cb([{}])));
+jest.mock('../../functions/libs/find-hexagram-images', () => jest.fn().mockImplementation((str1, str2, str3, result, cb) => cb([{}])));
 
 describe('fetch-readings', () => {
   test('Verified user calls without a user role', async () => {
