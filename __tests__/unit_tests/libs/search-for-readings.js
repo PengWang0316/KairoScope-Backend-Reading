@@ -20,7 +20,7 @@ describe('search-for-readings', () => {
     const callback = jest.fn();
     const results = [];
 
-    searchForReadings(query, callback, results);
+    searchForReadings('host', 'port', 'password', query, callback, results);
 
     expect(callback).toHaveBeenCalledTimes(1);
     expect(callback).toHaveBeenLastCalledWith([]);
@@ -41,7 +41,7 @@ describe('search-for-readings', () => {
     const callback = jest.fn();
     const results = null;
 
-    searchForReadings(query, callback, results);
+    searchForReadings('host', 'port', 'password', query, callback, results);
 
     // expect(callback).toHaveBeenCalledTimes(1);
     // expect(callback).toHaveBeenLastCalledWith('result');
@@ -55,7 +55,7 @@ describe('search-for-readings', () => {
     expect(mockToArray).toHaveBeenCalledTimes(1);
     expect(error).not.toHaveBeenCalled();
     expect(findHexagramImages).toHaveBeenCalledTimes(1);
-    expect(findHexagramImages).toHaveBeenLastCalledWith(['result'], callback);
+    expect(findHexagramImages).toHaveBeenLastCalledWith('host', 'port', 'password', ['result'], callback);
   });
 
   test('search-for-readings with 1 results and endDate', () => {
@@ -70,7 +70,7 @@ describe('search-for-readings', () => {
 
     mockToArray.mockImplementationOnce(cb => cb(null, []));
 
-    searchForReadings(query, callback, results);
+    searchForReadings('host', 'port', 'password', query, callback, results);
 
     // expect(callback).toHaveBeenCalledTimes(1);
     // expect(callback).toHaveBeenLastCalledWith('result');
@@ -105,7 +105,7 @@ describe('search-for-readings', () => {
 
     mockToArray.mockImplementationOnce(cb => cb('error message', []));
 
-    searchForReadings(query, callback, results);
+    searchForReadings('host', 'port', 'password', query, callback, results);
 
     expect(getDB).toHaveBeenCalledTimes(3);
     expect(mockCollection).toHaveBeenCalledTimes(3);
