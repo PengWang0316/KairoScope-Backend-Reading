@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
+    "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/preset-env": "^7.4.3",
     "@babel/runtime": "^7.4.3",
     "@kevinwang0316/cloudwatch": "^1.0.4",
